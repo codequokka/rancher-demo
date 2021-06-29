@@ -1,0 +1,51 @@
+---
+- name: Install docker into all nodes
+  hosts:
+    - rancher
+    - cluster
+  become: yes
+  gather_facts: yes
+  vars:
+    docker_users:
+      - vagrant
+  roles:
+    - geerlingguy.docker
+
+- name: Start a rancher container on a rancher node
+  hosts: rancher
+  become: yes
+  tasks:
+    - name: Install apt packages required by docker_container module.
+      apt:
+        name: python3-pip
+
+    - name: Install pip packages required by docker_container module.
+      pip:
+        name: docker-py
+
+    ###########################################################
+    # docker run -d --restart=unless-stopped \
+    #   -p 80:80 -p 443:443 \
+    #   -v /opt/rancher:/var/lib/rancher \
+    #   -v /var/log/rancher/auditlog:/var/log/auditlog \
+    #   -e AUDIT_LEVEL=3 \
+    #   --privileged \
+    #   rancher/rancher:latest
+    ###########################################################
+    - name: Start rancher container
+      docker_container:
+        name: rancher_container
+        image: rancher/rancher
+        state: started
+        ports:
+          - 80:80
+          - 443:443
+        volumes:
+          - /var/log/rancher/auditlog:/var/log/auditlog
+          - /opt/rancher:/var/lib/rancher 
+        env:
+          AUDIT_LEVEL: "1"
+        detach: true
+        restart_policy: unless-stopped
+        privileged: true
+        container_default_behavior: no_defaults
