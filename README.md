@@ -4,11 +4,14 @@
 ```console
 $ sudo apt install -y virtualbox
 $ sudo apt install -y vagrant
+$ sudo apt install -y pytyhon3-pip
+$ sudo apt install -y pytyhon3-venv
 ```
 
 # Setup Rancher server
 ```console
 $ git clone https://github.com/codequokka/rancher-demo
+$ cd rancher-demo
 
 $ vagrant up
 
