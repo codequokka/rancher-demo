@@ -1,4 +1,14 @@
 ---
+- name: Update apt packages on all nodes
+  hosts:
+    - rancher
+    - cluster
+  become: yes
+  tasks:
+    - name: Apt update
+      apt:
+        update_cache: yes
+
 - name: Install docker into all nodes
   hosts:
     - rancher
