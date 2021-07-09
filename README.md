@@ -1,4 +1,11 @@
-# Rancher-quickstart-manual-setup
+# Rancher-demo
+Setup Rancher demo environment.
+
+|Hostname|Note|
+|--------|----|
+|rancher01|Host for Rancher server|
+|cluster01|Host for K8s(RKE) cluster|
+|cluster02|Host for K8s(RKE) cluster|
 
 # Requirements(Ubuntu 20.04)
 ```console
@@ -8,7 +15,7 @@ $ sudo apt install -y pytyhon3-pip
 $ sudo apt install -y pytyhon3-venv
 ```
 
-# Setup Rancher server
+# Setup Rancher server and hosts for K8s(RKE) cluster
 ```console
 $ git clone https://github.com/codequokka/rancher-demo
 $ cd rancher-demo
